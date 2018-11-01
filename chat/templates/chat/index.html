@@ -1,0 +1,28 @@
+<html>
+<body>
+<div x="-200" y="-300" l="600" w="{% widthratio game_sessions|length|add:'1' 1 1000 %}" h="400" floor="10">
+</div>
+{% for session in game_sessions reversed %}
+    <div x="400" y="{% widthratio forloop.counter 1 600 %}" l="600" w="500" h="400" floor="10">
+        <div x="100" y="0" l="500" w="500" h="380" wall="10"></div>
+        <box x="0" y="0" z="0" material="wood"/>
+        <box x="0" y="100" z="0" material="wood"/>
+        <box x="0" y="300" z="0" material="wood"/>
+        <box x="0" y="400" z="0" material="wood"/>
+        <box x="0" y="0" z="100" material="wood"/>
+        <box x="0" y="100" z="100" material="wood"/>
+        <box x="0" y="300" z="100" material="wood"/>
+        <box x="0" y="400" z="100" material="wood"/>
+        <box x="0" y="0" z="200" material="wood"/>
+        <box x="0" y="100" z="200" material="wood"/>
+        <box x="0" y="200" z="200" material="wood"/>
+        <box x="0" y="300" z="200" material="wood"/>
+        <box x="0" y="400" z="200" material="wood"/>
+        <text x="-1" y="100" z="230" size="60">{{ session.GameProperties.0.Value }}</text>
+        <text x="-1" y="200" z="200" size="30">{{ session.CurrentPlayerSessionCount }} / {{ session.MaximumPlayerSessionCount }}</text>
+        <portal x="0" y="200" z="0" href="{{ request.get_host }}{% url 'chat:enter' %}?room_arn={{ session.GameSessionId }}"/>
+    </div>
+{% endfor %}
+    <portal x="-200" y="200" z="0" href="{{ request.get_host }}{% url 'chat:create' %}"/>
+</body>
+</html>

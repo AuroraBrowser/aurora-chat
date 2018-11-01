@@ -1,0 +1,49 @@
+<html>
+<body>
+<div x="-500" y="-500" l="1000" w="{% widthratio game_sessions|length|add:'1' 1 1000 %}" h="400" floor="10" wall="10"
+     ceiling="10">
+    <box x="0" y="0" z="0" l="1000" w="{% widthratio game_sessions|length|add:'1' 1 1000 %}" h="1" material="marble"/>
+    <sphere x="500" y="1600" z="0" w="200" l="200" h="200" material="pine"/>
+    <sphere x="600" y="1900" z="0" w="300" l="300" h="300" material="walnut"/>
+    <sphere x="600" y="1100" z="0" w="300" l="300" h="300" material="walnut"/>
+    <sphere x="500" y="900" z="0" w="200" l="200" h="200" material="pine"/>
+</div>
+
+{% for session in game_sessions reversed %}
+    <div x="400" y="{% widthratio forloop.counter0 1 600 %}" l="600" w="500" h="400" floor="10">
+        <div x="100" y="0" l="500" w="500" h="400" wall="10"></div>
+        <box x="0" y="0" z="0" material="brick"/>
+        <box x="0" y="100" z="0" material="brick"/>
+        <box x="0" y="300" z="0" material="brick"/>
+        <box x="0" y="400" z="0" material="brick"/>
+        <box x="0" y="0" z="100" material="brick"/>
+        <box x="0" y="100" z="100" material="brick"/>
+        <box x="0" y="300" z="100" material="brick"/>
+        <box x="0" y="400" z="100" material="brick"/>
+        <box x="0" y="0" z="200" material="brick"/>
+        <box x="0" y="100" z="200" material="brick"/>
+        <box x="0" y="200" z="200" material="brick"/>
+        <box x="0" y="300" z="200" material="brick"/>
+        <box x="0" y="400" z="200" material="brick"/>
+        <box x="0" y="0" z="300" material="brick"/>
+        <box x="0" y="100" z="300" material="brick"/>
+        <box x="0" y="200" z="300" material="brick"/>
+        <box x="0" y="300" z="300" material="brick"/>
+        <box x="0" y="400" z="300" material="brick"/>
+        <img x="-1" y="200" z="280" src="https://s3.ap-northeast-2.amazonaws.com/auroravr-worlds/image/VRML.png"/>
+        <text x="-1" y="100" z="200" size="60">{{ session.GameProperties.0.Value }}</text>
+        <text x="-1" y="100" z="170" size="30">{{ session.CurrentPlayerSessionCount }} / {{ session.MaximumPlayerSessionCount }}</text>
+        <portal x="0" y="200" z="-90" href="{{ session.GameSessionId }}"/>
+        <light x="50" y="250" z="190"/>
+    </div>
+    <div x="-400" y="{% widthratio forloop.counter0 1 600 %}" l="100" w="100" h="400">
+        <light x="410" y="250" z="300"/>
+        <light x="110" y="250" z="320"/>
+        <box x="0" y="200" z="0" material="pine"/>
+        <box x="0" y="200" z="100" material="pine"/>
+        <box x="0" y="200" z="200" material="pine"/>
+        <box x="0" y="200" z="300" material="pine"/>
+    </div>
+{% endfor %}
+</body>
+</html>
